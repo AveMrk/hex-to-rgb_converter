@@ -10,7 +10,10 @@ export default function HexToRgb (){
   const converter = (hex: string) => {
   hex = hex.replace('#', '');
   var aRgbHex = hex.match(/.{1,2}/g);
-  console.log(aRgbHex)
+  console.log(aRgbHex);
+  if(aRgbHex === null){
+    return;
+  }
   var aRgb = [
       parseInt(aRgbHex[0], 16),
       parseInt(aRgbHex[1], 16),
@@ -25,7 +28,9 @@ export default function HexToRgb (){
     console.log(value)
     if (value.length === 7){
       let newColor = converter(value);
-      setRgb(newColor)
+      if(newColor){
+        setRgb(newColor)
+      }
     } else if(value.length > 7){
       setRgb(error);
     }
