@@ -7,7 +7,7 @@ export default function HexToRgb (){
     background: colorHex,
   }
   const error = 'Ошибка!'
-  const converter = (hex: string) => {
+  /*const converter = (hex: string) => {
   hex = hex.replace('#', '');
   var aRgbHex = hex.match(/.{1,2}/g);
   console.log(aRgbHex);
@@ -21,15 +21,29 @@ export default function HexToRgb (){
   ];
   let aRgbStr = 'rgb('+ aRgb.join()+')';
   return aRgbStr;
+    }*/
+    function hexToRgb(hex: string) {
+      // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+      var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+      hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+        return r + r + g + g + b + b;
+      });
+    
+      var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result ? [
+        parseInt(result[1], 16),
+        parseInt(result[2], 16),
+        parseInt(result[3], 16)
+       ] : null;
     }
   const handleChange = (e: ChangeEvent<HTMLInputElement>)=> {
     const {value} = e.target;
     setHex(value)
     console.log(value)
-    if (value.length === 7){
-      let newColor = converter(value);
+    if (value.length === 7 || value.length === 4){
+      let newColor = (hexToRgb(value));
       if(newColor){
-        setRgb(newColor)
+        setRgb('rgb(' + newColor+ ')')
       }
     } else if(value.length > 7){
       setRgb(error);
