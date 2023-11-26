@@ -40,7 +40,7 @@ export default function HexToRgb (){
     const {value} = e.target;
     setHex(value)
     console.log(value)
-    if (value.length === 7 || value.length === 4){
+    if (/^#[0-9A-F]{6}$/i.test(value) && value.length === 7 || value.length === 4){
       let newColor = (hexToRgb(value));
       if(newColor){
         setRgb('rgb(' + newColor+ ')')
